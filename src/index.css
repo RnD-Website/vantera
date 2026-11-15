@@ -1,0 +1,99 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-navy font-manrope text-ink;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: #F2611D;
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid #FFB067;
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* Outline wordmark */
+.vt-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px #F2611D;
+}
+@media (min-width: 768px) {
+  .vt-outline {
+    -webkit-text-stroke-width: 2px;
+  }
+}
+
+/* Line-art "draw" on reveal */
+.draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 1.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.is-drawn .draw {
+  stroke-dashoffset: 0;
+}
+.is-drawn .draw:nth-child(2) { transition-delay: 0.08s; }
+.is-drawn .draw:nth-child(3) { transition-delay: 0.16s; }
+.is-drawn .draw:nth-child(4) { transition-delay: 0.24s; }
+.is-drawn .draw:nth-child(5) { transition-delay: 0.32s; }
+.is-drawn .draw:nth-child(6) { transition-delay: 0.4s; }
+.is-drawn .draw:nth-child(n + 7) { transition-delay: 0.48s; }
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .draw {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Card sheen sweep */
+@keyframes sheen {
+  0%, 55% { transform: translateX(0) skewX(-12deg); }
+  100% { transform: translateX(520%) skewX(-12deg); }
+}
+.card-sheen {
+  animation: sheen 4.5s ease-in-out infinite;
+}
+
+/* Warm color grade for photography (pulls cool/blue photos into the brand palette) */
+.photo-warm {
+  filter: sepia(0.38) saturate(1.2) hue-rotate(-12deg) contrast(1.04);
+}
